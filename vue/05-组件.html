@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .aa{
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3>我是父组件</h3>
+        <p>接收到的值:{{changeBtnValue}}</p>
+        <hr>
+        <my-componet1 :boy="boy" @change="changeBtn"></my-componet1>
+    </div>
+
+    <!-- <template id="tem2">
+        <div class="aa">
+            赵文卓
+        </div>
+    </template> -->
+</body>
+
+<script src="./js/vue.global.prod.js"></script>
+<script>
+    const {createApp,reactive,ref,toRefs} = Vue;
+
+    const state = reactive({
+                msg:'Hello World',
+                
+            })
+    const age = ref(18)
+
+    const myComponet1 ={
+        template: `
+        <p>
+            <input type="text" v-model="childMsg">
+            <button type="button" @click="childBtnClick">测试按钮</button>
+            <p>{{s.name}}</p>
+            <p>{{s.age}}</p>
+        </p>
+        `,
+        props:{
+            boy:Object
+        },
+        setup(props,{emit}){
+            const childMsg = ref('')
+            const p = toRefs(props)
+            const s = p.boy
+            const childBtnClick=()=>{
+                // console.log('heiehi');
+                emit('change',childMsg.value)
+                
+            }
+            return{
+                s,childMsg,childBtnClick
+            }
+            
+        }
+    }
+    // const myComponet2 ={
+    //     template: '#tem2'
+    // } 
+
+    const boy = reactive({
+        name:'赵文卓',
+        age:'22'
+    })
+
+    const app = createApp({
+        setup() {
+            const changeBtnValue = ref('')
+            const changeBtn=a =>{
+                console.log(a);
+                changeBtnValue.value = a;
+                
+        }
+            return{
+                boy,changeBtn,changeBtnValue
+            }
+        }
+    });
+
+    app.component('my-componet1',myComponet1)
+    // app.component('my-componet2',myComponet2)
+
+    app.mount('#app');   
+</script>
+</html>
+

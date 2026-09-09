@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+    </div>
+
+    <div id="firstApp">
+        {{msg}}
+    </div>
+    
+</body>
+<script src="./js/vue.global.prod.js"></script>
+<script>
+    const {createApp} = Vue;
+    
+    const app = createApp({
+        data() {
+            return {
+                msg:'hello vue',
+            }
+        },
+    })
+
+    const firstApp = createApp({
+        data() {
+            return {
+                msg:'hello world',
+            }
+        },
+    })
+
+    // 挂载到页面某个节点
+    app.mount('#app');
+    firstApp.mount('#firstApp')
+
+</script>
+</html>

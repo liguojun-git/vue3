@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{state.msg}},{{age}}
+
+        <p><input type="text" v-model="age" :placeholder="state.msg"></p>
+        
+        <button @click="btn2(11,$event)">测试按钮</button>
+    </div>
+    
+</body>
+<script src="./js/vue.global.prod.js"></script>
+<script>
+    const {createApp,reactive,ref} = Vue;
+
+    const state = reactive({
+                msg:'Hello World',
+                
+            })
+    const age = ref(18)
+
+    const app = createApp({
+        setup() {
+            // function btn2() {
+            //     console.log('btn2');    
+            // }
+
+            const btn2 =(e,b) =>{
+                console.log('简写',e,b.target.innerText);
+                age.value = 11;
+                
+            }
+
+            return{
+                state,age,btn2
+            }
+        },
+
+        methods: {
+            btn1(){
+                console.log('测试');
+                
+            }
+        },
+
+    })
+
+app.mount('#app');
+
+    
+
+    
+
+    
+    
+</script>
+</html>

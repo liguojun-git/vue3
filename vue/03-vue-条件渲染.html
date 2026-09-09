@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="state.flag">{{state.msg}}</div>
+        <p><div><input type="text" v-model="state.num"/></div>
+        <div>
+            <span v-if="state.num == 1">话费查询</span>
+            <span v-else-if="state.num == 2">流量查询</span>
+            <span v-else-if="state.num == 3">其他查询</span>
+            <span v-else>人工服务</span>
+        </div>
+        </p>
+    </div>
+</body>
+<script src="./js/vue.global.prod.js"></script>
+<script>
+    const {createApp,onMounted,getCurrentInstance,reactive} = Vue;
+
+    const app = createApp({
+        setup() {
+            const state = reactive({
+                msg:'Hello World',
+                flag: true,
+                num:''
+            })
+            return{
+                state
+            }
+        }
+    })
+
+    app.mount('#app');
+
+</script>
+</html>
